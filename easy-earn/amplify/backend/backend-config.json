@@ -1,0 +1,20 @@
+{
+	"api": {
+		"easyearn": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "Easy Eran API",
+							"apiKeyExpirationDays": 300
+						}
+					}
+				}
+			}
+		}
+	}
+}
