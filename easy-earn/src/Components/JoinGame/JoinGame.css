@@ -1,0 +1,46 @@
+.joinGame-s0 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.joinGame-s1 {
+  margin: 1rem;
+  color: rgba(228, 228, 228, 0.856);
+}
+
+.joinGame-s2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.joinGame-s3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.joinGame-s4 {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: rgba(228, 228, 228, 0.856);
+}
+
+.joinGame-s5 {
+  border: black;
+  border-style: outset;
+  width: 95%;
+  height: 380px;
+  background-color: rgb(62, 20, 139);
+  overflow: scroll;
+}
+
+.joinGame-s6 {
+  width: 200px;
+}

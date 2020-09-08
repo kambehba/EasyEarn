@@ -1,0 +1,27 @@
+.title-s0 {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.title-s1 {
+  color: rgb(250, 250, 250);
+  margin: 1rem;
+  animation-name: title-s2;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes title-s2 {
+  0% {
+    text-shadow: 4px 2px rgb(236, 15, 181);
+  }
+  25% {
+    text-shadow: 3px 2px rgb(12, 236, 23);
+  }
+  50% {
+    text-shadow: 2px 6px rgb(41, 39, 192);
+  }
+  100% {
+    text-shadow: 7px 4px rgb(36, 2, 12);
+  }
+}

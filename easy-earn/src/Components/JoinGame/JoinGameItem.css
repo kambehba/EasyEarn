@@ -1,0 +1,14 @@
+.joinGameItem-s0 {
+  display: flex;
+  flex-direction: row;
+}
+
+.joinGameItem-s1 {
+  margin: 1rem;
+  color: antiquewhite;
+}
+
+.joinGameItem-s2 {
+  width: 100px;
+  margin: 1rem;
+}

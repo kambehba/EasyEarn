@@ -5,11 +5,11 @@ export const getGame = /* GraphQL */ `
   query GetGame($id: ID!) {
     getGame(id: $id) {
       id
-      startedBy
+      createdBy
       players {
         items {
           id
-          title
+          name
           gameID
           pn1
           pn2
@@ -36,7 +36,7 @@ export const listGames = /* GraphQL */ `
     listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        startedBy
+        createdBy
         players {
           nextToken
         }
@@ -54,11 +54,11 @@ export const getPlayer = /* GraphQL */ `
   query GetPlayer($id: ID!) {
     getPlayer(id: $id) {
       id
-      title
+      name
       gameID
       game {
         id
-        startedBy
+        createdBy
         players {
           nextToken
         }
@@ -85,11 +85,11 @@ export const listPlayers = /* GraphQL */ `
     listPlayers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
+        name
         gameID
         game {
           id
-          startedBy
+          createdBy
           wn1
           wn2
           wn3

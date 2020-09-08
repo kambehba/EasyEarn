@@ -8,11 +8,11 @@ export const createGame = /* GraphQL */ `
   ) {
     createGame(input: $input, condition: $condition) {
       id
-      startedBy
+      createdBy
       players {
         items {
           id
-          title
+          name
           gameID
           pn1
           pn2
@@ -37,11 +37,11 @@ export const updateGame = /* GraphQL */ `
   ) {
     updateGame(input: $input, condition: $condition) {
       id
-      startedBy
+      createdBy
       players {
         items {
           id
-          title
+          name
           gameID
           pn1
           pn2
@@ -66,11 +66,11 @@ export const deleteGame = /* GraphQL */ `
   ) {
     deleteGame(input: $input, condition: $condition) {
       id
-      startedBy
+      createdBy
       players {
         items {
           id
-          title
+          name
           gameID
           pn1
           pn2
@@ -95,11 +95,11 @@ export const createPlayer = /* GraphQL */ `
   ) {
     createPlayer(input: $input, condition: $condition) {
       id
-      title
+      name
       gameID
       game {
         id
-        startedBy
+        createdBy
         players {
           nextToken
         }
@@ -124,11 +124,11 @@ export const updatePlayer = /* GraphQL */ `
   ) {
     updatePlayer(input: $input, condition: $condition) {
       id
-      title
+      name
       gameID
       game {
         id
-        startedBy
+        createdBy
         players {
           nextToken
         }
@@ -153,11 +153,11 @@ export const deletePlayer = /* GraphQL */ `
   ) {
     deletePlayer(input: $input, condition: $condition) {
       id
-      title
+      name
       gameID
       game {
         id
-        startedBy
+        createdBy
         players {
           nextToken
         }

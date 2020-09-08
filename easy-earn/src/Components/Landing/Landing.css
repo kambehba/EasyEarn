@@ -1,0 +1,25 @@
+.s1 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.landing-s2 {
+  width: 220px;
+  height: 45px;
+  margin-top: 12rem;
+  color: blue;
+  font-weight: bold;
+  font-size: large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.landing-s3 {
+  width: 200px;
+  height: 40px;
+  margin: 2rem;
+  color: rgb(240, 240, 245);
+  font-weight: bold;
+  font-size: large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
