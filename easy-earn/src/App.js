@@ -12,12 +12,13 @@ function App() {
   let landingSection = null;
   let joinGameSection = null;
   let gameSection = null;
-  //let gamesession = { players: [], wn1: -1, wn2: -1, wn3: -1 };
-  //let player = { name: "", pn1: -1, pn2: -1, pn3: -1 };
   const [showLanding, setshowLanding] = useState(true);
   const [showJoinGame, setshowJoinGame] = useState(false);
   const [showGame, setshowGame] = useState(false);
   const [playerName, setplayerName] = useState("");
+  const [gameID, setGameID] = useState(() => {
+    return "";
+  });
 
   const onStartClicked = (p) => {
     setshowJoinGame(true);
@@ -37,6 +38,8 @@ function App() {
         },
       })
     );
+
+    setGameID((prevgameID) => (prevgameID = id));
 
     setshowGame(true);
     setshowJoinGame(false);
@@ -70,7 +73,7 @@ function App() {
   if (showGame) {
     gameSection = (
       <div>
-        <Game />
+        <Game gameID={gameID} />
       </div>
     );
   }

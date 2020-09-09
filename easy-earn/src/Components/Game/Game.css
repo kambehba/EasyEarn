@@ -70,3 +70,27 @@
   align-content: center;
   align-items: center;
 }
+
+.game-s9 {
+  overflow: scroll;
+  border: rgb(0, 40, 100);
+  border-style: solid;
+  height: 200px;
+  width: 95%;
+  background-color: rgb(161, 13, 112);
+  color: antiquewhite;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+.game-10 {
+  margin: 1rem;
+  color: chartreuse;
+}
+
+.game-11 {
+  margin: 1rem;
+  font-size: medium;
+}

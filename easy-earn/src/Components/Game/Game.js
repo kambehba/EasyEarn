@@ -1,10 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Game/Game.css";
+import { API, graphqlOperation } from "aws-amplify";
+import { listPlayers } from "../../graphql/queries";
+import { onCreatePlayer } from "../../graphql/subscriptions";
 
 function Game(props) {
   const [pn1, setpn1] = useState("");
   const [pn2, setpn2] = useState("");
   const [pn3, setpn3] = useState("");
+
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    loadPlayersByGameID();
+    API.graphql(graphqlOperation(onCreatePlayer)).subscribe({
+      next: (playerData) => {
+        const newPlayer = playerData.value.data.onCreatePlayer;
+        const prevPlayers = players;
+        const updatedPlayers = [...prevPlayers, newPlayer];
+        setPlayers(updatedPlayers);
+        loadPlayersByGameID();
+      },
+    });
+  }, []);
+
+  const loadPlayersByGameID = async () => {
+    const result4 = await API.graphql(graphqlOperation(listPlayers));
+    const temp = result4.data.listPlayers.items.filter(
+      (x) => x.gameID == props.gameID
+    );
+    setPlayers(temp);
+  };
 
   const pickNumber = (n) => {
     if (pn1 === "") {
@@ -17,7 +43,6 @@ function Game(props) {
     }
     if (pn3 === "") {
       setpn3((prevpn3) => (prevpn3 = n));
-      alert(pn3);
       return;
     }
     if (!isNaN(pn1) && !isNaN(pn2) && !isNaN(pn3)) {
@@ -25,6 +50,10 @@ function Game(props) {
       setpn2("");
       setpn3("");
     }
+  };
+
+  const lockNumbers = () => {
+    alert("Number is Locked");
   };
   return (
     <div className="game-s0">
@@ -108,8 +137,19 @@ function Game(props) {
           <h1 className="game-s5">{pn3}</h1>
         </div>
         <div className="game-s8">
-          <button className="btn btn-success">Lock Number</button>
+          <button onClick={lockNumbers} className="btn btn-success">
+            Lock Your Number
+          </button>
         </div>
+      </div>
+
+      <div className="game-s9">
+        <h3 className="game-10">Players in This Room:</h3>
+        {players.map((x) => (
+          <div className="game-11">
+            {x.name} --- {x.pn1}.{x.pn2}.{x.pn3}
+          </div>
+        ))}
       </div>
     </div>
   );

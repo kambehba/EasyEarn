@@ -23,7 +23,6 @@ function JoinGame(props) {
   const loadGames = async () => {
     const result4 = await API.graphql(graphqlOperation(listGames));
     setGames(result4.data.listGames.items);
-    console.log(games);
   };
 
   const [games, setGames] = useState([]);
@@ -41,18 +40,6 @@ function JoinGame(props) {
           createdBy: playerName,
           wn1: 0,
           wn2: 22,
-        },
-      })
-    );
-
-    const result2 = await API.graphql(
-      graphqlOperation(createPlayer, {
-        input: {
-          name: playerName,
-          gameID: result.data.createGame.id,
-          pn1: 22,
-          pn2: 44,
-          pn3: 88,
         },
       })
     );
