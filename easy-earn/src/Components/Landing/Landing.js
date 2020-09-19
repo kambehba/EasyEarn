@@ -14,11 +14,19 @@ function Landing(props) {
           setplayerName(event.target.value);
         }}
       ></input>
+
+      <button
+        className="btn btn-success landing-s3"
+        onClick={() => props.joinExistingGameClicked(playerName)}
+      >
+        Join a Game
+      </button>
+
       <button
         className="btn btn-danger landing-s3"
-        onClick={() => props.startClicked(playerName)}
+        onClick={() => props.hostNewGameClicked(playerName)}
       >
-        Start
+        Host a Game
       </button>
     </div>
   );

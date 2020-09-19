@@ -10,7 +10,6 @@ export const onCreateGame = /* GraphQL */ `
         items {
           id
           name
-          gameID
           pn1
           pn2
           pn3
@@ -36,7 +35,6 @@ export const onUpdateGame = /* GraphQL */ `
         items {
           id
           name
-          gameID
           pn1
           pn2
           pn3
@@ -62,7 +60,6 @@ export const onDeleteGame = /* GraphQL */ `
         items {
           id
           name
-          gameID
           pn1
           pn2
           pn3
@@ -84,7 +81,9 @@ export const onCreatePlayer = /* GraphQL */ `
     onCreatePlayer {
       id
       name
-      gameID
+      pn1
+      pn2
+      pn3
       game {
         id
         createdBy
@@ -97,9 +96,6 @@ export const onCreatePlayer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      pn1
-      pn2
-      pn3
       createdAt
       updatedAt
     }
@@ -110,7 +106,9 @@ export const onUpdatePlayer = /* GraphQL */ `
     onUpdatePlayer {
       id
       name
-      gameID
+      pn1
+      pn2
+      pn3
       game {
         id
         createdBy
@@ -123,9 +121,6 @@ export const onUpdatePlayer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      pn1
-      pn2
-      pn3
       createdAt
       updatedAt
     }
@@ -136,7 +131,9 @@ export const onDeletePlayer = /* GraphQL */ `
     onDeletePlayer {
       id
       name
-      gameID
+      pn1
+      pn2
+      pn3
       game {
         id
         createdBy
@@ -149,9 +146,6 @@ export const onDeletePlayer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      pn1
-      pn2
-      pn3
       createdAt
       updatedAt
     }

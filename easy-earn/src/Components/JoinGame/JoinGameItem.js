@@ -6,7 +6,7 @@ function JoinGameItem(props) {
     <div className="joinGameItem-s0">
       <span>
         <button
-          onClick={props.joinGameClicked}
+          onClick={props.joinGame}
           className="btn- btn-success joinGameItem-s2"
         >
           Join

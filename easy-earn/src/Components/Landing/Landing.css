@@ -7,7 +7,8 @@
 .landing-s2 {
   width: 220px;
   height: 45px;
-  margin-top: 12rem;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
   color: blue;
   font-weight: bold;
   font-size: large;
@@ -17,7 +18,7 @@
 .landing-s3 {
   width: 200px;
   height: 40px;
-  margin: 2rem;
+  margin: 1rem;
   color: rgb(240, 240, 245);
   font-weight: bold;
   font-size: large;

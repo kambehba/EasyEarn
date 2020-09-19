@@ -24,7 +24,7 @@
   width: 55px;
   height: 55px;
   font-size: x-large;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .game-s4 {
@@ -57,7 +57,7 @@
   margin-top: 5px;
   font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   justify-content: center;
   align-content: center;
   align-items: center;
@@ -79,18 +79,37 @@
   width: 95%;
   background-color: rgb(161, 13, 112);
   color: antiquewhite;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 2rem;
   margin: 1rem;
 }
 
 .game-10 {
-  margin: 1rem;
-  color: chartreuse;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: medium;
 }
 
 .game-11 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
   margin: 1rem;
   font-size: medium;
+}
+
+.game-12 {
+  font-size: medium;
+  width: 200px;
+  margin: 1rem;
+}
+
+.game-13 {
+  font-size: medium;
+  width: 300px;
+  margin: 1rem;
 }

@@ -1,20 +1,19 @@
 type Game @model {
   id: ID!
   createdBy: String!
-  players: [Player] @connection(keyName: "byGame", fields: ["id"])
+  players: [Player] @connection(name: "GamePlayers")
   wn1: Float
   wn2: Float
   wn3: Float
 }
 
-type Player @model @key(name: "byGame", fields: ["gameID"]) {
+type Player @model {
   id: ID!
   name: String!
-  gameID: ID!
-  game: Game @connection(fields: ["gameID"])
   pn1: Float
   pn2: Float
   pn3: Float
+  game: Game @connection(name: "GamePlayers")
 }
 
 # type Blog @model {

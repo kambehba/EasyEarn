@@ -10,7 +10,6 @@ export const getGame = /* GraphQL */ `
         items {
           id
           name
-          gameID
           pn1
           pn2
           pn3
@@ -55,7 +54,9 @@ export const getPlayer = /* GraphQL */ `
     getPlayer(id: $id) {
       id
       name
-      gameID
+      pn1
+      pn2
+      pn3
       game {
         id
         createdBy
@@ -68,9 +69,6 @@ export const getPlayer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      pn1
-      pn2
-      pn3
       createdAt
       updatedAt
     }
@@ -86,7 +84,9 @@ export const listPlayers = /* GraphQL */ `
       items {
         id
         name
-        gameID
+        pn1
+        pn2
+        pn3
         game {
           id
           createdBy
@@ -96,9 +96,6 @@ export const listPlayers = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        pn1
-        pn2
-        pn3
         createdAt
         updatedAt
       }

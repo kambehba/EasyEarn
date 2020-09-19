@@ -6,7 +6,7 @@ const JoinGameItems = (props) =>
   props.games.map((m) => {
     return (
       <JoinGameItem
-        joinGameClicked={() => props.onJoinGameClicked(m.id, props.playerName)}
+        joinGame={() => props.joinGame(m.id, props.playerName)}
         playerName={m.createdBy}
       />
     );
