@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../Game/Game.css";
-import { API, graphqlOperation } from "aws-amplify";
-import { listPlayers, getGame } from "../../graphql/queries";
+import { a, API, graphqlOperation } from "aws-amplify";
+import { listPlayers, getGame, listWinners } from "../../graphql/queries";
 import {
   updatePlayer,
   deletePlayer,
   deleteGame,
+  createWinner,
 } from "../../graphql/mutations";
 import { onCreatePlayer, onUpdatePlayer } from "../../graphql/subscriptions";
 
@@ -57,14 +58,10 @@ function Game(props) {
     }
   };
 
-  const ProcessGameResult = () => {
+  const ProcessGameResult = async () => {
     players.map((item) => {
       setWinningNumbers();
       setPlayerNumbers(item);
-
-      console.log(winnuingNumbers);
-      console.log(playerNumbers);
-
       let hasPlayerLost = false;
       for (var i = 0; i < winnuingNumbers.length; i++) {
         if (winnuingNumbers[i] !== playerNumbers[i]) {
@@ -77,12 +74,14 @@ function Game(props) {
         winners.push(item.name);
       }
     });
-    winners.map((w) => alert(w));
-
-    players.map((x) => {
-      removePlayer(x);
+    winners.map((w) => {
+      addWinnerNameToList(w);
     });
-    removeGame(props.gameId);
+
+    // const result4 = await API.graphql(graphqlOperation(listWinners));
+    // const temp = result4.data.listWinners.items.filter(
+    //   (x) => x.winnerGameId == props.gameId
+    // );
   };
 
   const lockNumbers = async () => {
@@ -226,7 +225,7 @@ function Game(props) {
   );
 
   function setWinningNumbers() {
-    winnuingNumbers = winnuingNumbers.splice(0, winnuingNumbers.length);
+    winnuingNumbers.splice(0, winnuingNumbers.length);
     winnuingNumbers.push(props.wn1);
     winnuingNumbers.push(props.wn2);
     winnuingNumbers.push(props.wn3);
@@ -234,7 +233,7 @@ function Game(props) {
   }
 
   function setPlayerNumbers(p) {
-    playerNumbers = playerNumbers.splice(0, playerNumbers.length);
+    playerNumbers.splice(0, playerNumbers.length);
     playerNumbers.push(p.pn1);
     playerNumbers.push(p.pn2);
     playerNumbers.push(p.pn3);
@@ -293,6 +292,17 @@ function Game(props) {
       graphqlOperation(deleteGame, {
         input: {
           id: g,
+        },
+      })
+    );
+  }
+
+  async function addWinnerNameToList(winnerName) {
+    const result5 = await API.graphql(
+      graphqlOperation(createWinner, {
+        input: {
+          name: winnerName,
+          winnerGameId: props.gameId,
         },
       })
     );

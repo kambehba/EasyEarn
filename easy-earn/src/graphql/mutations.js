@@ -21,6 +21,15 @@ export const createGame = /* GraphQL */ `
         }
         nextToken
       }
+      winners {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       wn1
       wn2
       wn3
@@ -44,6 +53,15 @@ export const updateGame = /* GraphQL */ `
           pn1
           pn2
           pn3
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      winners {
+        items {
+          id
+          name
           createdAt
           updatedAt
         }
@@ -77,6 +95,15 @@ export const deleteGame = /* GraphQL */ `
         }
         nextToken
       }
+      winners {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       wn1
       wn2
       wn3
@@ -100,6 +127,9 @@ export const createPlayer = /* GraphQL */ `
         id
         createdBy
         players {
+          nextToken
+        }
+        winners {
           nextToken
         }
         wn1
@@ -130,6 +160,9 @@ export const updatePlayer = /* GraphQL */ `
         players {
           nextToken
         }
+        winners {
+          nextToken
+        }
         wn1
         wn2
         wn3
@@ -156,6 +189,93 @@ export const deletePlayer = /* GraphQL */ `
         id
         createdBy
         players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createWinner = /* GraphQL */ `
+  mutation CreateWinner(
+    $input: CreateWinnerInput!
+    $condition: ModelWinnerConditionInput
+  ) {
+    createWinner(input: $input, condition: $condition) {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateWinner = /* GraphQL */ `
+  mutation UpdateWinner(
+    $input: UpdateWinnerInput!
+    $condition: ModelWinnerConditionInput
+  ) {
+    updateWinner(input: $input, condition: $condition) {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteWinner = /* GraphQL */ `
+  mutation DeleteWinner(
+    $input: DeleteWinnerInput!
+    $condition: ModelWinnerConditionInput
+  ) {
+    deleteWinner(input: $input, condition: $condition) {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
           nextToken
         }
         wn1

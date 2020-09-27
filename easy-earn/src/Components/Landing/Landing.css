@@ -1,4 +1,4 @@
-.s1 {
+.landing-s1 {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -22,5 +22,14 @@
   color: rgb(240, 240, 245);
   font-weight: bold;
   font-size: large;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.landing-s4 {
+  margin: 1rem;
+  color: rgb(107, 3, 3);
+  font-style: italic;
+  font-weight: bold;
+  font-size: medium;
   font-family: Georgia, "Times New Roman", Times, serif;
 }

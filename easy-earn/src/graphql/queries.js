@@ -18,6 +18,15 @@ export const getGame = /* GraphQL */ `
         }
         nextToken
       }
+      winners {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       wn1
       wn2
       wn3
@@ -37,6 +46,9 @@ export const listGames = /* GraphQL */ `
         id
         createdBy
         players {
+          nextToken
+        }
+        winners {
           nextToken
         }
         wn1
@@ -63,6 +75,9 @@ export const getPlayer = /* GraphQL */ `
         players {
           nextToken
         }
+        winners {
+          nextToken
+        }
         wn1
         wn2
         wn3
@@ -87,6 +102,57 @@ export const listPlayers = /* GraphQL */ `
         pn1
         pn2
         pn3
+        game {
+          id
+          createdBy
+          wn1
+          wn2
+          wn3
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getWinner = /* GraphQL */ `
+  query GetWinner($id: ID!) {
+    getWinner(id: $id) {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listWinners = /* GraphQL */ `
+  query ListWinners(
+    $filter: ModelWinnerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listWinners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
         game {
           id
           createdBy

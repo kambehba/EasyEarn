@@ -4,21 +4,35 @@ import Title from "../src/Components/Title/Title";
 import Landing from "../src/Components/Landing/Landing";
 import JoinGame from "../src/Components/JoinGame/JoinGame";
 import Game from "../src/Components/Game/Game";
+import Winners from "./Components/EndGame/Winners";
 import { API, graphqlOperation } from "aws-amplify";
-import { listPlayers, getGame } from "../src/graphql/queries";
-import { createPlayer, createGame } from "../src/graphql/mutations";
+import { listPlayers, getGame, listWinners } from "../src/graphql/queries";
+import {
+  createPlayer,
+  createGame,
+  deletePlayer,
+  deleteGame,
+} from "../src/graphql/mutations";
+import { onCreateWinner } from "../src/graphql/subscriptions";
+import EndGame from "../src/Components/EndGame/EndGame";
 
 function App() {
   let titleSection = null;
   let landingSection = null;
   let joinGameSection = null;
   let gameSection = null;
+  let winnersSection = null;
+
   const [showLanding, setshowLanding] = useState(true);
   const [showJoinGame, setshowJoinGame] = useState(false);
   const [showGame, setshowGame] = useState(false);
+  const [showWinners, setshowWinners] = useState(false);
   const [playerName, setplayerName] = useState("");
   const [playerId, setplayerId] = useState("");
+  const [winner, setWinner] = useState("");
+  const [winnerList, setwinnerList] = useState([]);
   const [isowner, setisowner] = useState(false);
+  const [players, setPlayers] = useState([]);
 
   const [wn1, setwn1] = useState(0);
   const [wn2, setwn2] = useState(0);
@@ -30,6 +44,7 @@ function App() {
 
   useEffect(() => {
     setWinningNumbers();
+    listenToCreateWinners();
   }, []);
 
   const setWinningNumbers = () => {
@@ -38,7 +53,60 @@ function App() {
     setwn3(Math.floor(Math.random() * 10));
   };
 
-  const [players, setPlayers] = useState([]);
+  function deletePlayers() {
+    console.log(players.length);
+    players.map((p) => {
+      deletePlayer2(p);
+    });
+  }
+
+  const deletePlayer2 = async (p) => {
+    const result5 = await API.graphql(
+      graphqlOperation(deletePlayer, {
+        input: {
+          id: p.id,
+        },
+      })
+    );
+  };
+  const deleteGameById = async () => {
+    const result5 = await API.graphql(
+      graphqlOperation(deleteGame, {
+        input: {
+          id: gameID,
+        },
+      })
+    );
+  };
+
+  const setWinnerListByGameId = async (newwinner) => {
+    console.log("newwinner:" + newwinner.game.id);
+    const result4 = await API.graphql(graphqlOperation(listWinners));
+    const temp = result4.data.listWinners.items.filter(
+      (x) => x.game.id == newwinner.game.id
+    );
+    winnerList.splice(0, winnerList.length);
+
+    temp.map((item) => {
+      if (winnerList.indexOf(item) === -1) winnerList.push(item);
+    });
+    setshowJoinGame(false);
+    setshowLanding(false);
+    setshowGame(false);
+    setshowWinners(true);
+    setwinnerList(winnerList);
+    console.log("temp[0].winnerGameId:" + temp[0].game.id);
+    loadPlayersByGameID(temp[0].game.id);
+  };
+
+  const listenToCreateWinners = async () => {
+    API.graphql(graphqlOperation(onCreateWinner)).subscribe({
+      next: (winnerData) => {
+        const newwinner = winnerData.value.data.onCreateWinner;
+        setWinnerListByGameId(newwinner);
+      },
+    });
+  };
 
   const onHostNewGame = async (p) => {
     const result = await API.graphql(
@@ -72,17 +140,20 @@ function App() {
     setshowJoinGame(false);
     setshowLanding(false);
     setshowGame(true);
-
-    console.log("qqqq" + result5.data.createPlayer.id);
+    setshowWinners(false);
   };
 
-  const loadPlayersByGameID = async () => {
+  const loadPlayersByGameID = async (winnerGameId) => {
     const result4 = await API.graphql(graphqlOperation(listPlayers));
     const temp = result4.data.listPlayers.items.filter(
-      (x) => x.gameID == gameID
+      (x) => x.game.id == winnerGameId
     );
-
-    setPlayers(temp);
+    players.splice(0, players.length);
+    temp.map((p) => {
+      players.push(p);
+    });
+    setPlayers(players);
+    deletePlayers();
   };
 
   const onJoinExistingGameClicked = (p) => {
@@ -90,6 +161,7 @@ function App() {
     setshowLanding(false);
     setshowGame(false);
     setshowJoinGame(true);
+    setshowWinners(false);
   };
 
   const joinGame = async (id, playerName) => {
@@ -112,6 +184,7 @@ function App() {
     setshowLanding(false);
     setshowGame(true);
     setshowJoinGame(false);
+    setshowWinners(false);
   };
 
   titleSection = (
@@ -154,12 +227,37 @@ function App() {
     );
   }
 
+  // if (showWinners) {
+  //   winnersSection = (
+  //     <div>
+  //       <Winners
+  //         players={players}
+  //         gameId={gameID}
+  //         winnerList={winnerList}
+  //       ></Winners>
+  //     </div>
+  //   );
+  // }
+
+  if (showWinners) {
+    winnersSection = (
+      <div>
+        <EndGame
+          players={players}
+          gameId={gameID}
+          winnerList={winnerList}
+        ></EndGame>
+      </div>
+    );
+  }
+
   return (
     <div>
       {titleSection}
       {landingSection}
       {joinGameSection}
       {gameSection}
+      {winnersSection}
     </div>
   );
 }

@@ -2,6 +2,7 @@ type Game @model {
   id: ID!
   createdBy: String!
   players: [Player] @connection(name: "GamePlayers")
+  winners: [Winner] @connection(name: "GameWinners")
   wn1: Float
   wn2: Float
   wn3: Float
@@ -14,6 +15,12 @@ type Player @model {
   pn2: Float
   pn3: Float
   game: Game @connection(name: "GamePlayers")
+}
+
+type Winner @model {
+  id: ID!
+  name: String
+  game: Game @connection(name: "GameWinners")
 }
 
 # type Blog @model {

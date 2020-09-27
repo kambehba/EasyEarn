@@ -18,6 +18,15 @@ export const onCreateGame = /* GraphQL */ `
         }
         nextToken
       }
+      winners {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       wn1
       wn2
       wn3
@@ -38,6 +47,15 @@ export const onUpdateGame = /* GraphQL */ `
           pn1
           pn2
           pn3
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      winners {
+        items {
+          id
+          name
           createdAt
           updatedAt
         }
@@ -68,6 +86,15 @@ export const onDeleteGame = /* GraphQL */ `
         }
         nextToken
       }
+      winners {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       wn1
       wn2
       wn3
@@ -88,6 +115,9 @@ export const onCreatePlayer = /* GraphQL */ `
         id
         createdBy
         players {
+          nextToken
+        }
+        winners {
           nextToken
         }
         wn1
@@ -115,6 +145,9 @@ export const onUpdatePlayer = /* GraphQL */ `
         players {
           nextToken
         }
+        winners {
+          nextToken
+        }
         wn1
         wn2
         wn3
@@ -138,6 +171,84 @@ export const onDeletePlayer = /* GraphQL */ `
         id
         createdBy
         players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateWinner = /* GraphQL */ `
+  subscription OnCreateWinner {
+    onCreateWinner {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateWinner = /* GraphQL */ `
+  subscription OnUpdateWinner {
+    onUpdateWinner {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
+          nextToken
+        }
+        wn1
+        wn2
+        wn3
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteWinner = /* GraphQL */ `
+  subscription OnDeleteWinner {
+    onDeleteWinner {
+      id
+      name
+      game {
+        id
+        createdBy
+        players {
+          nextToken
+        }
+        winners {
           nextToken
         }
         wn1
