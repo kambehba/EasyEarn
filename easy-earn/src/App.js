@@ -22,7 +22,7 @@ function App() {
   let joinGameSection = null;
   let gameSection = null;
   let winnersSection = null;
-
+  let result = "";
   const [showLanding, setshowLanding] = useState(true);
   const [showJoinGame, setshowJoinGame] = useState(false);
   const [showGame, setshowGame] = useState(false);
@@ -30,6 +30,7 @@ function App() {
   const [playerName, setplayerName] = useState("");
   const [playerId, setplayerId] = useState("");
   const [winner, setWinner] = useState("");
+  const [endGameResult, setendGameResult] = useState("");
   const [winnerList, setwinnerList] = useState([]);
   const [isowner, setisowner] = useState(false);
   const [players, setPlayers] = useState([]);
@@ -38,9 +39,11 @@ function App() {
   const [wn2, setwn2] = useState(0);
   const [wn3, setwn3] = useState(0);
 
-  const [gameID, setGameID] = useState(() => {
-    return "";
-  });
+  // const [gameID, setGameID] = useState(() => {
+  //   return "";
+  // });
+
+  const [gameID, setGameID] = useState("");
 
   useEffect(() => {
     setWinningNumbers();
@@ -69,34 +72,69 @@ function App() {
       })
     );
   };
-  const deleteGameById = async () => {
+
+  const deleteWinner = async (w) => {
     const result5 = await API.graphql(
-      graphqlOperation(deleteGame, {
+      graphqlOperation(deleteWinner, {
         input: {
-          id: gameID,
+          id: w.id,
         },
       })
     );
   };
 
+  const deleteGameById = async (id) => {
+    const result5 = await API.graphql(
+      graphqlOperation(deleteGame, {
+        input: {
+          id: id,
+        },
+      })
+    );
+  };
+
+  const deleteWinnersByGameId = async (id) => {
+    alert("deleteWinnersByGameId-1: " + id);
+    const result4 = await API.graphql(graphqlOperation(listWinners));
+    alert("deleteWinnersByGameId-2: " + result4.data.listWinners.items[0].id);
+    const temp = result4.data.listWinners.items.filter((x) => x.name == "bita");
+    alert("deleteWinnersByGameId-3: " + temp[0].id);
+    temp.map((x) => deleteWinner(x));
+  };
+
+  const showEndPage = async () => {
+    setendGameResult("No Winner!");
+    setshowJoinGame(false);
+    setshowLanding(false);
+    setshowGame(false);
+    setshowWinners(true);
+
+    const result4 = await API.graphql(graphqlOperation(listPlayers));
+    const temp = result4.data.listPlayers.items.filter(
+      (x) => x.game.id == gameID
+    );
+    temp.map((x) => deletePlayer2(x));
+
+    //deletePlayers();
+    //deleteGameById(temp[0].game.id);
+  };
+
   const setWinnerListByGameId = async (newwinner) => {
-    console.log("newwinner:" + newwinner.game.id);
     const result4 = await API.graphql(graphqlOperation(listWinners));
     const temp = result4.data.listWinners.items.filter(
-      (x) => x.game.id == newwinner.game.id
+      (x) => x.winnerGameId == newwinner.winnerGameId
     );
     winnerList.splice(0, winnerList.length);
 
     temp.map((item) => {
       if (winnerList.indexOf(item) === -1) winnerList.push(item);
     });
+    setGameID(temp[0].game.id);
     setshowJoinGame(false);
     setshowLanding(false);
     setshowGame(false);
     setshowWinners(true);
     setwinnerList(winnerList);
-    console.log("temp[0].winnerGameId:" + temp[0].game.id);
-    loadPlayersByGameID(temp[0].game.id);
   };
 
   const listenToCreateWinners = async () => {
@@ -143,11 +181,9 @@ function App() {
     setshowWinners(false);
   };
 
-  const loadPlayersByGameID = async (winnerGameId) => {
+  const deletePlayersByGameID = async (id) => {
     const result4 = await API.graphql(graphqlOperation(listPlayers));
-    const temp = result4.data.listPlayers.items.filter(
-      (x) => x.game.id == winnerGameId
-    );
+    const temp = result4.data.listPlayers.items.filter((x) => x.game.id == id);
     players.splice(0, players.length);
     temp.map((p) => {
       players.push(p);
@@ -222,27 +258,18 @@ function App() {
           gameId={gameID}
           players={players}
           playerId={playerId}
+          showEndPage={showEndPage}
         />
       </div>
     );
   }
 
-  // if (showWinners) {
-  //   winnersSection = (
-  //     <div>
-  //       <Winners
-  //         players={players}
-  //         gameId={gameID}
-  //         winnerList={winnerList}
-  //       ></Winners>
-  //     </div>
-  //   );
-  // }
-
   if (showWinners) {
     winnersSection = (
       <div>
         <EndGame
+          isowner={isowner}
+          endGameResult={endGameResult}
           players={players}
           gameId={gameID}
           winnerList={winnerList}

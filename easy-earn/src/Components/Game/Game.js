@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Game/Game.css";
-import { a, API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { listPlayers, getGame, listWinners } from "../../graphql/queries";
 import {
   updatePlayer,
@@ -23,6 +23,7 @@ function Game(props) {
   const [players, setPlayers] = useState([]);
   const [player, setPlayer] = useState({});
   const [game, setGame] = useState({});
+  const [disablePickNumber, setDisablePickNumber] = useState(false);
 
   useEffect(() => {
     loadPlayersByGameID();
@@ -40,18 +41,22 @@ function Game(props) {
 
   const pickNumber = (n) => {
     if (pn1 === "") {
+      playPushButton();
       setpn1(n);
       return;
     }
     if (pn2 === "") {
+      playPushButton();
       setpn2(n);
       return;
     }
     if (pn3 === "") {
+      playPushButton();
       setpn3((prevpn3) => (prevpn3 = n));
       return;
     }
     if (!isNaN(pn1) && !isNaN(pn2) && !isNaN(pn3)) {
+      playPushButton();
       setpn1("");
       setpn2("");
       setpn3("");
@@ -77,11 +82,22 @@ function Game(props) {
     winners.map((w) => {
       addWinnerNameToList(w);
     });
+    if (winners.length <= 0) {
+      winners.push("No Winner");
+      winners.map((w) => {
+        addWinnerNameToList(w);
+      });
+      props.showEndPage();
+    }
+  };
 
-    // const result4 = await API.graphql(graphqlOperation(listWinners));
-    // const temp = result4.data.listWinners.items.filter(
-    //   (x) => x.winnerGameId == props.gameId
-    // );
+  const playLockSound = () => {
+    document.getElementById("a1").play();
+    setDisablePickNumber(true);
+  };
+
+  const playPushButton = () => {
+    document.getElementById("a2").play();
   };
 
   const lockNumbers = async () => {
@@ -108,6 +124,7 @@ function Game(props) {
         },
       })
     );
+    playLockSound();
   };
 
   if (props.isowner) {
@@ -125,23 +142,32 @@ function Game(props) {
 
   return (
     <div className="game-s0">
+      <audio id="a1">
+        <source src="audio/lock.wav" type="audio/mpeg"></source>
+      </audio>
+      <audio id="a2">
+        <source src="audio/pushButton.wav" type="audio/mpeg"></source>
+      </audio>
       <div className="game-s6">
         <div className="game-s7">Pick 3 NUMBERS</div>
         <div className="game-s1">
           <div className="game-s2">
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(1)}
               className="btn btn-danger game-s3"
             >
               1
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(2)}
               className="btn btn-danger game-s3"
             >
               2
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(3)}
               className="btn btn-danger game-s3"
             >
@@ -151,18 +177,21 @@ function Game(props) {
 
           <div className="game-s2">
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(4)}
               className="btn btn-danger game-s3"
             >
               4
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(5)}
               className="btn btn-danger game-s3"
             >
               5
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(6)}
               className="btn btn-danger game-s3"
             >
@@ -172,18 +201,21 @@ function Game(props) {
 
           <div className="game-s2">
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(7)}
               className="btn btn-danger game-s3"
             >
               7
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(8)}
               className="btn btn-danger game-s3"
             >
               8
             </button>
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(9)}
               className="btn btn-danger game-s3"
             >
@@ -192,6 +224,7 @@ function Game(props) {
           </div>
           <div className="game-s2">
             <button
+              disabled={disablePickNumber}
               onClick={() => pickNumber(0)}
               className="btn btn-danger game-s3"
             >

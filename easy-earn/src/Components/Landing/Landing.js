@@ -13,12 +13,12 @@ function Landing(props) {
     validatePlayerName
   );
 
-  function joinGame() {
-    props.joinExistingGameClicked(playerName);
+  function joinGame(name) {
+    props.joinExistingGameClicked(name);
   }
 
-  function hostGame() {
-    props.hostNewGameClicked(playerName);
+  function hostGame(name) {
+    props.hostNewGameClicked(name);
   }
 
   return (
@@ -52,7 +52,7 @@ function Landing(props) {
         //onClick={() => props.hostNewGameClicked(playerName)}
         onClick={handleSubmit}
       >
-        Start a Game
+        Host a Game
       </button>
     </form>
     // </div>

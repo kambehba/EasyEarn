@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/easyearn.png" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/images/easyearn.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/easyearn.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/easyearn.png" />
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
@@ -41,5 +41,16 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceworker.js")
+            .then((reg) => console.log("Success:", reg.scope))
+            .catch((e) => console.log("Failuer:", e));
+        });
+      }
+    </script>
   </body>
 </html>
