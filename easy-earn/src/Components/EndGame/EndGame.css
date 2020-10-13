@@ -1,25 +1,191 @@
+.endgame-s0 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
 .endgame-s1 {
-  margin-top: 25rem;
-  margin-left: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 .endgame-s2 {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
+  height: 50px;
+  width: 50px;
+  background-color: rgba(22, 10, 129, 0.952);
   border-radius: 50%;
   display: inline-block;
+  margin: 5px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.endgame-s7 {
+  opacity: 0;
+}
+
+.endgame-s6 {
+  font-size: 2rem;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: rgba(218, 5, 218, 0.979);
+  margin-top: 0rem;
+  margin-left: 1rem;
 }
 
 .endgame-s3 {
-  animation: rotation 20s infinite linear;
+  animation: m1 5s 4;
 }
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
+.glow {
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  margin: 1rem;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
   }
-  to {
-    transform: rotate(359deg);
+
+  25% {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+
+  50% {
+    text-shadow: 0 0 20px rgb(255, 255, 255), 0 0 30px #3b0520, 0 0 40px #ff4da6,
+      0 0 50px #3b3337, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+
+  75% {
+    text-shadow: 0 0 20px rgb(16, 201, 32), 0 0 30px #3b0520, 0 0 40px #ff4da6,
+      0 0 50px #3b3337, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+@keyframes m3 {
+  0% {
+    color: red;
+  }
+  25% {
+    color: black;
+  }
+  50% {
+    color: red;
+    transform: skew(-40deg, -20deg);
+    transform: rotate(10);
+  }
+  75% {
+    color: black;
+    transform: rotate(10);
+  }
+  100% {
+    color: red;
+    transform: rotate(10);
+  }
+}
+
+@keyframes m1 {
+  0% {
+    transform: scale(0.5);
+  }
+  25% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+.endgame-a1 {
+  animation: a1 3s 5;
+}
+
+.endgame-a2 {
+  animation: a2 2s 1;
+}
+
+@keyframes a1 {
+  0% {
+    transform: scale(0.2, 0.2);
+    background-color: rgb(246, 246, 248);
+    color: black;
+    font-style: normal;
+  }
+  10% {
+    transform: scale(0.4, 0.4);
+    background-color: rgb(184, 210, 245);
+    font-style: italic;
+  }
+  20% {
+    transform: scale(0.6, 0.6);
+    background-color: rgb(93, 129, 247);
+    font-style: normal;
+  }
+  30% {
+    transform: scale(0.8, 0.8);
+    background-color: rgb(40, 71, 247);
+    font-style: italic;
+  }
+  40% {
+    transform: scale(1, 1);
+    background-color: rgb(3, 21, 68);
+    font-style: italic;
+  }
+
+  50% {
+    transform: scale(1.2, 1.2);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
+  }
+
+  60% {
+    transform: scale(1, 1);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
+  }
+
+  70% {
+    transform: scale(0.8, 0.8);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
+  }
+
+  80% {
+    transform: scale(0.6, 0.6);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
+  }
+
+  90% {
+    transform: scale(0.4, 0.4);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
+  }
+
+  100% {
+    transform: scale(0, 0);
+    background-color: rgb(3, 1, 36);
+    font-style: italic;
   }
 }

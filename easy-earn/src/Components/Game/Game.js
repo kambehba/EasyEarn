@@ -77,17 +77,20 @@ function Game(props) {
 
       if (!hasPlayerLost) {
         winners.push(item.name);
+        props.isThereWinner(true);
       }
     });
     winners.map((w) => {
       addWinnerNameToList(w);
     });
     if (winners.length <= 0) {
-      winners.push("No Winner");
+      props.isThereWinner(false);
+      winners.splice(0, winners.length);
+      winners.push("No Winner!");
       winners.map((w) => {
         addWinnerNameToList(w);
       });
-      props.showEndPage();
+      // props.showEndPage();
     }
   };
 
@@ -291,12 +294,6 @@ function Game(props) {
     API.graphql(graphqlOperation(onUpdatePlayer)).subscribe({
       next: (playerData) => {
         const updatedPlayer = playerData.value.data.onUpdatePlayer;
-        //console.log(updatedPlayer);
-
-        //setPlayer(updatedPlayer);
-        //const prevPlayers = players;
-        //const updatedPlayers = [...prevPlayers, updatedPlayer];
-        //setPlayers(updatedPlayers);
         loadPlayersByGameID();
       },
     });

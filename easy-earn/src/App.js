@@ -22,7 +22,6 @@ function App() {
   let joinGameSection = null;
   let gameSection = null;
   let winnersSection = null;
-  let result = "";
   const [showLanding, setshowLanding] = useState(true);
   const [showJoinGame, setshowJoinGame] = useState(false);
   const [showGame, setshowGame] = useState(false);
@@ -30,10 +29,11 @@ function App() {
   const [playerName, setplayerName] = useState("");
   const [playerId, setplayerId] = useState("");
   const [winner, setWinner] = useState("");
-  const [endGameResult, setendGameResult] = useState("");
+  const [result, setResult] = useState("");
   const [winnerList, setwinnerList] = useState([]);
   const [isowner, setisowner] = useState(false);
   const [players, setPlayers] = useState([]);
+  const [isThereWinner, setIsThereWinner] = useState(false);
 
   const [wn1, setwn1] = useState(0);
   const [wn2, setwn2] = useState(0);
@@ -62,6 +62,10 @@ function App() {
       deletePlayer2(p);
     });
   }
+
+  const isThereWinner2 = (result) => {
+    setIsThereWinner(result);
+  };
 
   const deletePlayer2 = async (p) => {
     const result5 = await API.graphql(
@@ -94,35 +98,22 @@ function App() {
   };
 
   const deleteWinnersByGameId = async (id) => {
-    alert("deleteWinnersByGameId-1: " + id);
     const result4 = await API.graphql(graphqlOperation(listWinners));
-    alert("deleteWinnersByGameId-2: " + result4.data.listWinners.items[0].id);
     const temp = result4.data.listWinners.items.filter((x) => x.name == "bita");
-    alert("deleteWinnersByGameId-3: " + temp[0].id);
     temp.map((x) => deleteWinner(x));
   };
 
   const showEndPage = async () => {
-    setendGameResult("No Winner!");
     setshowJoinGame(false);
     setshowLanding(false);
     setshowGame(false);
     setshowWinners(true);
-
-    const result4 = await API.graphql(graphqlOperation(listPlayers));
-    const temp = result4.data.listPlayers.items.filter(
-      (x) => x.game.id == gameID
-    );
-    temp.map((x) => deletePlayer2(x));
-
-    //deletePlayers();
-    //deleteGameById(temp[0].game.id);
   };
 
   const setWinnerListByGameId = async (newwinner) => {
     const result4 = await API.graphql(graphqlOperation(listWinners));
     const temp = result4.data.listWinners.items.filter(
-      (x) => x.winnerGameId == newwinner.winnerGameId
+      (x) => x.game.id == newwinner.game.id
     );
     winnerList.splice(0, winnerList.length);
 
@@ -259,6 +250,7 @@ function App() {
           players={players}
           playerId={playerId}
           showEndPage={showEndPage}
+          isThereWinner={isThereWinner2}
         />
       </div>
     );
@@ -268,11 +260,12 @@ function App() {
     winnersSection = (
       <div>
         <EndGame
+          result={result}
           isowner={isowner}
-          endGameResult={endGameResult}
           players={players}
           gameId={gameID}
           winnerList={winnerList}
+          isThereWinner={isThereWinner}
         ></EndGame>
       </div>
     );
