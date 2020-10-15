@@ -132,6 +132,8 @@ function App() {
     API.graphql(graphqlOperation(onCreateWinner)).subscribe({
       next: (winnerData) => {
         const newwinner = winnerData.value.data.onCreateWinner;
+        console.log(newwinner.name);
+        if(newwinner.name != "No Winner!") setIsThereWinner(true);
         setWinnerListByGameId(newwinner);
       },
     });

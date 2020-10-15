@@ -50,12 +50,9 @@ function EndGame(props) {
     x8.className = "endgame-s2 endgame-a1";
     x9.className = "endgame-s2 endgame-a1";
     x0.className = "endgame-s2 endgame-a1";
-    document.getElementById("a3").play();
-    //x.addEventListener("animationstart", myStartFunction);
-    //x.addEventListener("animationiteration", myRepeatFunction);
+    document.getElementById("a1").play();
     x1.addEventListener("animationend", myEndFunction);
-    //x2.addEventListener("animationend", myEndFunction);
-    //x3.addEventListener("animationend", myEndFunction);
+    
   }
 
   const cleanUpGameData = async () => {
@@ -169,7 +166,7 @@ function EndGame(props) {
       <div>{resultSection}</div>
       <div>{cleanUpSection}</div>
       <div>
-        <audio loop id="a3">
+        <audio loop id="a1">
           <source src="audio/Metal.wav" type="audio/mpeg"></source>
         </audio>
         <div id="t1">
